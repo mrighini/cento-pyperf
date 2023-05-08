@@ -1,0 +1,31 @@
+tail /var/log/cloud-init.log
+instance-id: cloud-vm
+      local-hostname: cloud-vm
+      network:
+         version: 2
+         ethernets:
+            nics:
+               match:
+                  name: ens*
+               dhcp4: yes
+hostname: webserver
+hostname: webserver
+apt_update: true
+apt_upgrade: true
+packages:
+ - apt-transport-https
+ - ca-certificates
+ - curl
+ - wget
+ - software-properties-common
+ - glances
+ runcmd:
+- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+- add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+- apt-cache policy docker-ce
+- apt install -y docker-ce
+- usermod -aG docker mrighini
+- systemctl start docker-ce
+- systemctl enable docker-ce
+- mkdir /home/mrighini/centos-pyperf
+- wget -qO- https://github.com/intel/svr-info/releases/latest/download/svr-info.tgz | tar xvz /home/mrighini/

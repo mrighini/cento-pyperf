@@ -1,0 +1,18 @@
+Step by Step PyPerf setup
+Install Docker:
+sudo apt -y update
+sudo apt -y upgrade
+sudo apt -y install apt-transport-https ca-certificates curl software-properties-common glances
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+apt-cache policy docker-ce
+sudo apt install -y docker-ce
+sudo usermod -aG docker ${USER}
+sudo usermod -aG docker username
+mkdir ~/centos-pyperf
+
+
+wget -qO- https://github.com/intel/svr-info/releases/latest/download/svr-info.tgz | tar xvz
+
+sudo ./svr-info/svr-info -benchmark all
+
